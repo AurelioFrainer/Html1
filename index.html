@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TotalEquilibra - Receitas Artesanais</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body onload="onLoadPage()">
+  <div id="pagina_principal">
+    <style>
+      :root {
+        --primary: #e63946;
+        --secondary: #457b9d;
+        --accent: #1d3557;
+        --dark: #2b2d42;
+        --light: #f1faee;
+        --white: #ffffff;
+        --gray: #6c757d;
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Header */
+      .header {
+        background: var(--white);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .header-top {
+        background: var(--accent);
+        color: var(--white);
+        padding: 0.5rem 0;
+        font-size: 0.875rem;
+      }
+
+      .header-top .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-contact {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .header-contact a {
+        color: var(--white);
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .header-contact a:hover {
+        opacity: 0.8;
+      }
+
+      .header-main {
+        padding: 1rem 0;
+        background: var(--white);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .header-main .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo span {
+        color: var(--primary);
+      }
+
+      .logo::before {
+        content: "🌶️";
+        font-size: 2rem;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-menu a {
+        color: var(--dark);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+      }
+
+      .nav-menu a:hover {
+        color: var(--primary);
+        background: rgba(230, 57, 70, 0.1);
+      }
+
+      .header-cta {
+        background: var(--primary);
+        color: var(--white);
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary);
+      }
+
+      .header-cta:hover {
+        background: transparent;
+        color: var(--primary);
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 8rem 0 4rem;
+        background: linear-gradient(135deg, var(--light) 0%, #fff5f5 100%);
+        text-align: center;
+      }
+
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--gray);
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+      }
+
+      /* Benefits Section */
+      .benefits {
+        padding: 6rem 0;
+        background: var(--white);
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--primary);
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .benefit-card {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 8px;
+        background: var(--white);
+        box-shadow: var(--shadow-md);
+        transition: transform 0.3s ease;
+      }
+
+      .benefit-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .benefit-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Product Info Section */
+      .product-info {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
+      }
+
+      .product-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .product-info-content {
+        padding-right: 2rem;
+      }
+
+      .product-info-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+
+      .product-info-text {
+        color: var(--gray);
+        margin-bottom: 2rem;
+      }
+
+      .product-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .product-feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .feature-icon {
+        background: rgba(230, 57, 70, 0.1);
+        color: var(--primary);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+
+      .feature-content h4 {
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-content p {
+        color: var(--gray);
+        font-size: 0.875rem;
+      }
+
+      .product-images {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .product-image {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        aspect-ratio: 4/3;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .product-image:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Payment Methods */
+      .payment-methods {
+        padding: 6rem 0;
+        background: var(--light);
+      }
+
+      .payment-options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .payment-option {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+      }
+
+      .payment-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .payment-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Price Section */
+      .price-section {
+        padding: 6rem 0;
+        background: var(--white);
+      }
+
+      .price-card {
+        max-width: 500px;
+        margin: 0 auto;
+        background: var(--white);
+        border-radius: 8px;
+        padding: 3rem;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+      }
+
+      .price-amount {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1.5rem 0;
+      }
+
+      .price-amount small {
+        font-size: 1.25rem;
+        color: var(--gray);
+      }
+
+      .feature-list {
+        list-style: none;
+        margin: 2rem 0;
+        text-align: left;
+      }
+
+      .feature-list li {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+        position: relative;
+      }
+
+      .feature-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
+      }
+
+      .buy-button {
+        display: inline-block;
+        background: var(--primary);
+        color: var(--white);
+        padding: 1rem 2rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .buy-button:hover {
+        background: var(--secondary);
+        transform: translateY(-2px);
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, var(--light) 0%, #fff5f5 100%);
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .testimonial-card {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        transition: transform 0.3s ease;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .testimonial-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        object-fit: cover;
+        border: 3px solid var(--primary);
+      }
+
+      .testimonial-info h4 {
+        color: var(--dark);
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .testimonial-info p {
+        color: var(--gray);
+        font-size: 0.875rem;
+      }
+
+      .testimonial-stars {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .testimonial-text {
+        color: var(--gray);
+        font-style: italic;
+        line-height: 1.7;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--dark);
+        color: var(--light);
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-title {
+        color: var(--white);
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links a {
+        color: var(--light);
+        text-decoration: none;
+        display: block;
+        margin-bottom: 0.75rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--accent);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray);
+      }
+
+      @media (max-width: 768px) {
+        .header-top {
+          display: none;
+        }
+
+        .nav-menu {
+          display: none;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .payment-options {
+          grid-template-columns: 1fr;
+        }
+
+        .product-info-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-info-content {
+          padding-right: 0;
+        }
+
+        .product-features {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          padding: 0 1rem;
+        }
+      }
+    </style>
+    <header class="header">
+      <div class="header-top">
+        <div class="container">
+          <div class="header-contact">
+            <a href="mailto:contato@totalequilibra.com.br">contato@totalequilibra.com.br</a>
+            <a href="tel:+5511912345678">(11) 91234-5678</a>
+          </div>
+          <div>Desde 2020 - Qualidade Artesanal</div>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="container">
+          <a href="#" class="logo">Total<span>Equilibra</span></a>
+          <ul class="nav-menu">
+            <li><a href="#beneficios">Benefícios</a></li>
+            <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#preco">Preço</a></li>
+            <li><a href="#footer">Contato</a></li>
+          </ul>
+          <a href="#preco" class="header-cta">Comprar Agora</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Descubra o Poder das Pimentas</h1>
+        <p class="hero-subtitle">
+          Receitas exclusivas que combinam tradição e ciência para melhorar sua
+          saúde naturalmente
+        </p>
+        <a href="#preco" class="buy-button">Quero Conhecer</a>
+      </div>
+    </section>
+
+    <section id="beneficios" class="benefits">
+      <div class="container">
+        <h2 class="section-title">Benefícios para Sua Saúde</h2>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🌶️</div>
+            <h3>Metabolismo Acelerado</h3>
+            <p>Aumente naturalmente seu gasto calórico diário</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">❤️</div>
+            <h3>Saúde Cardiovascular</h3>
+            <p>Melhore sua circulação sanguínea</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🌿</div>
+            <h3>Anti-inflamatório Natural</h3>
+            <p>Combata inflamações de forma natural</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🛡️</div>
+            <h3>Sistema Imunológico</h3>
+            <p>Fortaleça suas defesas naturais</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-info">
+      <div class="container">
+        <div class="product-info-grid">
+          <div class="product-info-content">
+            <h2 class="product-info-title">
+              Receitas Artesanais com Poder Curativo
+            </h2>
+            <p class="product-info-text">
+              Nosso guia completo reúne receitas ancestrais e conhecimento
+              científico moderno para criar preparações que não só deliciam o
+              paladar, mas também promovem saúde e bem-estar.
+            </p>
+            <div class="product-features">
+              <div class="product-feature">
+                <div class="feature-icon">📖</div>
+                <div class="feature-content">
+                  <h4>Receitas Detalhadas</h4>
+                  <p>Passo a passo completo com dicas profissionais</p>
+                </div>
+              </div>
+              <div class="product-feature">
+                <div class="feature-icon">🌡️</div>
+                <div class="feature-content">
+                  <h4>Técnicas de Preparo</h4>
+                  <p>Métodos seguros de fermentação e conservação</p>
+                </div>
+              </div>
+              <div class="product-feature">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-content">
+                  <h4>Dosagem Ideal</h4>
+                  <p>Proporções perfeitas para cada preparação</p>
+                </div>
+              </div>
+              <div class="product-feature">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-content">
+                  <h4>Guia de Ingredientes</h4>
+                  <p>Propriedades e benefícios de cada pimenta</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-images">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1494597564530-871f2b93ac55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Saúde e Bem-estar" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="depoimentos" class="testimonials">
+      <div class="container">
+        <h2 class="section-title">O Que Dizem Nossos Clientes</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Beatriz Santos" class="testimonial-avatar" />
+              <div class="testimonial-info">
+                <h4>Beatriz Santos</h4>
+                <p>Chef de Cozinha</p>
+              </div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">
+              "As receitas são incríveis! Cada molho tem um sabor único e
+              especial. Recomendo muito!"
+            </p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ricardo Oliveira" class="testimonial-avatar" />
+              <div class="testimonial-info">
+                <h4>Ricardo Oliveira</h4>
+                <p>Entusiasta Culinário</p>
+              </div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">
+              "Nunca imaginei que fazer conservas pudesse ser tão fácil. O guia
+              é muito completo!"
+            </p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Fernanda Lima" class="testimonial-avatar" />
+              <div class="testimonial-info">
+                <h4>Fernanda Lima</h4>
+                <p>Nutricionista</p>
+              </div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">
+              "Como profissional da área, recomendo totalmente. O conteúdo é
+              muito bem fundamentado."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="payment-methods">
+      <div class="container">
+        <h2 class="section-title">Formas de Pagamento</h2>
+        <div class="payment-options">
+          <div class="payment-option">
+            <div class="payment-icon">💳</div>
+            <h3 class="payment-title">Cartão de Crédito</h3>
+            <p>Parcele em até 12x<br />Todas as bandeiras aceitas</p>
+          </div>
+          <div class="payment-option">
+            <div class="payment-icon">📱</div>
+            <h3 class="payment-title">PIX</h3>
+            <p>Pagamento instantâneo<br />5% de desconto</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preco" class="price-section">
+      <div class="container">
+        <h2 class="section-title">Invista na Sua Saúde</h2>
+        <div class="price-card">
+          <h3>Guia Completo de Receitas</h3>
+          <div class="price-amount">R$ 19,90 <small>/único</small></div>
+          <ul class="feature-list">
+            <li>20 receitas exclusivas de molhos e conservas</li>
+            <li>Guia de benefícios de cada ingrediente</li>
+            <li>Técnicas de conservação</li>
+            <li>Dicas de harmonização</li>
+            <li>Suporte via WhatsApp</li>
+            <li>Acesso vitalício ao conteúdo</li>
+          </ul>
+          <a href="https://pay.kiwify.com.br/OfxYRcZ" class="buy-button">Quero Começar Agora</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="pagina_privacidade">
+    <style>
+      :root {
+        --primary-color: #e63946;
+        --primary-dark: #457b9d;
+        --text-color: #374151;
+        --bg-color: #f3f4f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
+        color: var(--text-color);
+        background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+        min-height: 100vh;
+      }
+
+      header {
+        background: linear-gradient(90deg,
+            var(--primary-color) 0%,
+            var(--primary-dark) 100%);
+        padding: 4rem 1rem;
+        text-align: center;
+        color: white;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      header p {
+        color: #bfdbfe;
+        font-size: 1.125rem;
+      }
+
+      main {
+        max-width: 64rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+      }
+
+      .content {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .section {
+        display: flex;
+        gap: 1.5rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .section:last-child {
+        border-bottom: none;
+      }
+
+      .icon {
+        flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        color: var(--primary-color);
+      }
+
+      .section-content h2 {
+        color: #111827;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .section-content p {
+        color: #4b5563;
+        line-height: 1.75;
+      }
+
+      .last-update {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e5e7eb;
+        color: #6b7280;
+        font-size: 0.875rem;
+      }
+
+      footer {
+        background: #f9fafb;
+        padding: 2rem 1rem;
+        text-align: center;
+        color: #6b7280;
+        margin-top: 3rem;
+      }
+
+      @media (max-width: 640px) {
+        header h1 {
+          font-size: 2rem;
+        }
+
+        .section {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .content {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+    <header>
+      <h1>Política de Privacidade</h1>
+      <p>Seu compromisso com a transparência e segurança</p>
+    </header>
+
+    <main>
+      <div class="content">
+        <!-- Introdução -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div class="section-content">
+            <h2>Introdução</h2>
+            <p>
+              Bem-vindo à nossa página de Política de Privacidade. No "Manual de
+              Bem-Estar Masculino", sua privacidade é uma prioridade. Por favor,
+              leia atentamente para entender como seus dados são coletados,
+              utilizados e protegidos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Coleta de Dados -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <div class="section-content">
+            <h2>Coleta de Dados</h2>
+            <p>
+              Reunimos informações pessoais, como nome, e-mail e dados de
+              pagamento, exclusivamente para processar compras e melhorar sua
+              experiência. Esses dados são usados para entregar serviços, como
+              eBooks e notificações.
+            </p>
+          </div>
+        </div>
+
+        <!-- Segurança de Informações -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <div class="section-content">
+            <h2>Segurança de Informações</h2>
+            <p>
+              Empregamos métodos avançados para proteger seus dados pessoais.
+              Todas as informações são criptografadas e acessadas apenas por
+              pessoas autorizadas, garantindo a máxima segurança.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cookies -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div class="section-content">
+            <h2>Cookies e Navegação</h2>
+            <p>
+              Utilizamos cookies para aprimorar a experiência de navegação em
+              nosso site. Esses pequenos arquivos ajudam a personalizar sua
+              jornada e a oferecer conteúdos relevantes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Compartilhamento -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          <div class="section-content">
+            <h2>Compartilhamento de Informações</h2>
+            <p>
+              Não compartilhamos suas informações pessoais com terceiros, exceto
+              quando exigido por lei ou para executar os serviços contratados.
+              Seus dados permanecem seguros conosco.
+            </p>
+          </div>
+        </div>
+
+        <!-- Atualizações -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <div class="section-content">
+            <h2>Atualizações</h2>
+            <p>
+              Podemos revisar esta política de tempos em tempos. Recomendamos
+              que você consulte este documento regularmente para se manter
+              informado sobre possíveis alterações.
+            </p>
+          </div>
+        </div>
+
+        <div class="last-update">
+          <strong>Última atualização:</strong> Dezembro de 2024
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2025 Total Equilibrio. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+  <div id="pagina_reembolso">
+    <style>
+      :root {
+        --primary-color: #e63946;
+        --primary-dark: #457b9d;
+        --text-color: #374151;
+        --bg-color: #f3f4f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
+        color: var(--text-color);
+        background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+        min-height: 100vh;
+      }
+
+      header {
+        background: linear-gradient(90deg,
+            var(--primary-color) 0%,
+            var(--primary-dark) 100%);
+        padding: 4rem 1rem;
+        text-align: center;
+        color: white;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      header p {
+        color: #bfdbfe;
+        font-size: 1.125rem;
+      }
+
+      main {
+        max-width: 64rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+      }
+
+      .content {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .section {
+        display: flex;
+        gap: 1.5rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .section:last-child {
+        border-bottom: none;
+      }
+
+      .icon {
+        flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        color: var(--primary-color);
+      }
+
+      .section-content h2 {
+        color: #111827;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .section-content p {
+        color: #4b5563;
+        line-height: 1.75;
+        margin-bottom: 1rem;
+      }
+
+      .section-content ul {
+        list-style-type: none;
+        color: #4b5563;
+        margin: 1rem 0;
+      }
+
+      .section-content li {
+        margin-bottom: 0.75rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .section-content li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--primary-color);
+      }
+
+      .contact-email {
+        display: inline-block;
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      footer {
+        background: #f9fafb;
+        padding: 2rem 1rem;
+        text-align: center;
+        color: #6b7280;
+        margin-top: 3rem;
+      }
+
+      @media (max-width: 640px) {
+        header h1 {
+          font-size: 2rem;
+        }
+
+        .section {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .content {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+    </head>
+
+    <header>
+      <h1>Política de Reembolso</h1>
+      <p>Garantia de satisfação com nossos produtos</p>
+    </header>
+
+    <main>
+      <div class="content">
+        <!-- Apresentação -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div class="section-content">
+            <h2>Apresentação</h2>
+            <p>
+              Garantimos a satisfação com o eBook "Total Equilibrio Masculino".
+              Caso tenha dúvidas ou precise de reembolso, siga os critérios
+              descritos abaixo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Critérios -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div class="section-content">
+            <h2>Critérios para Reembolso</h2>
+            <p>
+              É possível solicitar reembolso até <strong>7 dias</strong> após a
+              compra. O processo deve ser iniciado pelo suporte, com retorno em
+              até 5 dias úteis.
+            </p>
+          </div>
+        </div>
+
+        <!-- Requisitos -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          <div class="section-content">
+            <h2>Requisitos</h2>
+            <ul>
+              <li>
+                Solicitar o reembolso em até 7 dias após a confirmação da
+                compra.
+              </li>
+              <li>
+                Informar o motivo do pedido para que possamos aprimorar o
+                serviço.
+              </li>
+              <li>
+                Os valores serão devolvidos ao método original de pagamento.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Restrições -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <div class="section-content">
+            <h2>Restrições</h2>
+            <p>
+              Não realizamos reembolso para promoções ou ofertas especiais.
+              Pedidos fora do prazo ou sem justificativa válida podem ser
+              negados.
+            </p>
+          </div>
+        </div>
+
+        <!-- Contato -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <div class="section-content">
+            <h2>Como Entrar em Contato</h2>
+            <p>
+              Para suporte ou solicitações, entre em contato pelo e-mail:
+              <a href="mailto:atendimento@manualbemestar.com" class="contact-email">atendimento@manualbemestar.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2025 Total Equilibrio. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+  <div id="pagina_uso">
+    <style>
+      :root {
+        --primary-color: #e63946;
+        --primary-dark: #457b9d;
+        --text-color: #374151;
+        --bg-color: #f3f4f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
+        color: var(--text-color);
+        background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+        min-height: 100vh;
+      }
+
+      header {
+        background: linear-gradient(90deg,
+            var(--primary-color) 0%,
+            var(--primary-dark) 100%);
+        padding: 4rem 1rem;
+        text-align: center;
+        color: white;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      header p {
+        color: #bfdbfe;
+        font-size: 1.125rem;
+      }
+
+      main {
+        max-width: 64rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+      }
+
+      .content {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .section {
+        display: flex;
+        gap: 1.5rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .section:last-child {
+        border-bottom: none;
+      }
+
+      .icon {
+        flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        color: var(--primary-color);
+      }
+
+      .section-content h2 {
+        color: #111827;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .section-content p {
+        color: #4b5563;
+        line-height: 1.75;
+      }
+
+      .last-update {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e5e7eb;
+        color: #6b7280;
+        font-size: 0.875rem;
+      }
+
+      footer {
+        background: #f9fafb;
+        padding: 2rem 1rem;
+        text-align: center;
+        color: #6b7280;
+        margin-top: 3rem;
+      }
+
+      @media (max-width: 640px) {
+        header h1 {
+          font-size: 2rem;
+        }
+
+        .section {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .content {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+    </head>
+    <header>
+      <h1>Termos de Uso</h1>
+      <p>Condições para utilização do nosso produto</p>
+    </header>
+
+    <main>
+      <div class="content">
+        <!-- Apresentação -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div class="section-content">
+            <h2>Apresentação</h2>
+            <p>
+              Ao acessar e utilizar o eBook "Total Equilibrio Masculino", você
+              aceita os termos descritos aqui. Caso não concorde com estas
+              condições, não prossiga com o uso do produto.
+            </p>
+          </div>
+        </div>
+
+        <!-- Direitos de Uso -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <div class="section-content">
+            <h2>Direitos de Uso</h2>
+            <p>
+              O eBook é uma propriedade intelectual exclusiva de NaturaVida
+              Produtos Naturais. Concedemos uma licença pessoal e não
+              transferível para leitura e estudo do conteúdo. É proibida a
+              redistribuição ou revenda sem autorização prévia por escrito.
+            </p>
+          </div>
+        </div>
+
+        <!-- Propriedade Intelectual -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+          </svg>
+          <div class="section-content">
+            <h2>Propriedade Intelectual</h2>
+            <p>
+              O conteúdo do eBook é protegido por leis de direitos autorais e
+              não pode ser reproduzido ou utilizado para outros fins sem
+              autorização. Violações serão tratadas de acordo com a legislação
+              vigente.
+            </p>
+          </div>
+        </div>
+
+        <!-- Deveres do Usuário -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <div class="section-content">
+            <h2>Deveres do Usuário</h2>
+            <p>
+              Ao utilizar o eBook, você concorda em respeitar os direitos da
+              NaturaVida e de terceiros, comprometendo-se a usá-lo de maneira
+              ética e em conformidade com a lei. O uso comercial sem
+              consentimento é estritamente proibido.
+            </p>
+          </div>
+        </div>
+
+        <!-- Isenção de Garantias -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <div class="section-content">
+            <h2>Isenção de Garantias</h2>
+            <p>
+              O eBook é fornecido no estado em que se encontra, sem garantia de
+              adequação ou resultados específicos. Não nos responsabilizamos por
+              eventuais prejuízos relacionados ao uso do material.
+            </p>
+          </div>
+        </div>
+
+        <!-- Revisões -->
+        <div class="section">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <div class="section-content">
+            <h2>Revisões dos Termos</h2>
+            <p>
+              Estes termos podem ser revisados periodicamente, sem aviso prévio.
+              Recomendamos verificar regularmente para se manter atualizado.
+            </p>
+          </div>
+        </div>
+
+        <div class="last-update">
+          <strong>Última atualização:</strong> Dezembro de 2024
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2025 Total Equilibrio. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4 class="footer-title">TotalEquilibra</h4>
+          <p>Transformando vidas através do poder natural das pimentas.</p>
+        </div>
+        <div>
+          <h4 class="footer-title">Links Úteis</h4>
+          <ul class="footer-links">
+            <li>
+              <a onclick="setActivePage('pagina_privacidade')">Política de Privacidade</a>
+            </li>
+            <li>
+              <a onclick="setActivePage('pagina_reembolso')">Política de Reembolso</a>
+            </li>
+            <li>
+              <a onclick="setActivePage('pagina_uso')">Termos de Uso</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Contato</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="mailto:contato@totalequilibra.com.br">contato@totalequilibra.com.br</a>
+            </li>
+            <li><a href="tel:+5511912345678">(11) 91234-5678</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 TotalEquilibra - Todos os direitos reservados</p>
+        <p>
+          TotalEquilibra é um programa educacional sobre os benefícios das
+          pimentas. Nosso conteúdo é informativo e não substitui orientação
+          médica profissional. Resultados individuais podem variar.
+        </p>
+        <p>
+          TotalEquilibra Produtos Naturais LTDA | CNPJ: 13.156.747/0001-85
+          <br />
+          Avenida das Especiarias, 1234 - Jardim Botânico, São Paulo - SP
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+          behavior: "smooth",
+        });
+      });
+    });
+
+    function onLoadPage() {
+      setActivePage('pagina_principal');
+    }
+
+    function setActivePage(name) {
+      const elem_principal = document.getElementById('pagina_principal');
+      const elem_privacidade = document.getElementById('pagina_privacidade');
+      const elem_reemboldo = document.getElementById('pagina_reembolso');
+      const elem_uso = document.getElementById('pagina_uso');
+
+      elem_principal.style.display = 'none';
+      elem_privacidade.style.display = 'none';
+      elem_reemboldo.style.display = 'none';
+      elem_uso.style.display = 'none';
+
+      if (name === 'none')
+        return;
+
+      const elem_active = document.getElementById(name);
+      elem_active.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+
+</html>
